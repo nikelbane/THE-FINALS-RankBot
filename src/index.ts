@@ -18,6 +18,7 @@ import {
   AttachmentBuilder,
 } from "discord.js";
 import { generatePointsGraph } from "./graph";
+import express from "express";
 
 const {
   DISCORD_TOKEN,
@@ -270,6 +271,18 @@ client.on("interactionCreate", async (interaction: Interaction) => {
       });
     }
   }
+});
+
+// Simple web server to keep the bot alive
+const app = express();
+const port = process.env.PORT || 10000; // Use the PORT environment variable
+
+app.get("/", (req, res) => {
+  res.send("Discord bot is alive!");
+});
+
+app.listen(port, () => {
+  console.log(`Web server running on port ${port}`);
 });
 
 client.login(DISCORD_TOKEN);
