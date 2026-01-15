@@ -58,7 +58,7 @@ async function fetchStatsForUsername(username: string) {
   const body = {
     meta: {
       id: username,
-      range: 15552000, // Hardcoded to finals api
+      range: 604800, // Hardcoded to finals api date range
       time: "Asia/Kolkata",
     },
   };
@@ -117,7 +117,7 @@ client.on("interactionCreate", async (interaction: Interaction) => {
       });
 
       await interaction.editReply({
-        content: "Here is your points progression 📈",
+        content: "Here is your rank progression 📈",
         files: [attachment],
       });
     } catch (err: any) {

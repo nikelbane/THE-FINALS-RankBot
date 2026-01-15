@@ -36,7 +36,7 @@ export async function generatePointsGraph(
       labels,
       datasets: [
         {
-          label: "Points Progression",
+          label: "Rank Progression",
           data: graphPoints,
           borderColor: "#38bdf8",
           backgroundColor: "rgba(56, 189, 248, 0.2)",
