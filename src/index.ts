@@ -195,12 +195,14 @@ client.on("interactionCreate", async (interaction: Interaction) => {
     try {
       const { data } = await fetchApiForUsername(username);
       let roleName: string | undefined;
+      let rankPoints: number | undefined;
       if (
         data != null &&
         data.length > 0 &&
         data[0].name.toLowerCase() === username.toLowerCase()
       ) {
         const dataRoleName = data[0].league;
+        rankPoints = data[0].rankScore;
         if (dataRoleName == "Ruby") {
           roleName = dataRoleName.toUpperCase();
         } else {
@@ -250,14 +252,15 @@ client.on("interactionCreate", async (interaction: Interaction) => {
         content: `Assigned role '${roleName}' to ${member?.user.tag}.`,
       });
 
-      const txtReply = `User ${interaction.user.tag} (${interaction.user.id}) assigned to themselves the role '${roleName}' for Embark ID '${username}'.`;
+      const txtReply = `User ${interaction.user.tag} (${interaction.user.id}) assigned to themselves the role '${roleName}' for Embark ID '${username}' with ${rankPoints} RS.`;
 
       const modMsgEmbed = new EmbedBuilder()
         .setColor(0x0099ff)
         .setTitle("Rank Submission Received")
         .setAuthor({
           name: "TFI Rank Bot",
-          iconURL: "https://postimg.cc/pmCtr6vc",
+          iconURL:
+            "https://github.com/nikelbane/THE-FINALS-RankBot/blob/master/src/TFI.png?raw=true",
         })
         .setDescription(txtReply)
         .setImage(rankPic)
