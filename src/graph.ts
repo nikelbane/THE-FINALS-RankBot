@@ -38,11 +38,29 @@ export async function generatePointsGraph(
         {
           label: "Rank Progression",
           data: graphPoints,
-          borderColor: "#38bdf8",
-          backgroundColor: "rgba(56, 189, 248, 0.2)",
-          tension: 0.3,
-          pointRadius: 4,
-          pointHoverRadius: 6,
+
+          tension: 0.25,
+          borderWidth: 1.5,
+          pointRadius: 0.5,
+          pointHoverRadius: 3,
+
+          segment: {
+            borderColor: (ctx) => {
+              const y0 = ctx.p0.parsed.y;
+              const y1 = ctx.p1.parsed.y;
+
+              // Guard against null values
+              if (y0 == null || y1 == null) {
+                return "#94a3b8"; // neutral color
+              }
+
+              return y1 > y0
+                ? "#22c55e" // green (upward)
+                : y1 < y0
+                ? "#ef4444" // red (downward)
+                : "#94a3b8"; // neutral (flat)
+            },
+          },
         },
       ],
     },
@@ -65,20 +83,12 @@ export async function generatePointsGraph(
       },
       scales: {
         x: {
-          ticks: {
-            color: "#cbd5f5",
-          },
-          grid: {
-            color: "rgba(148,163,184,0.2)",
-          },
+          ticks: { color: "#cbd5f5" },
+          grid: { color: "rgba(148,163,184,0.2)" },
         },
         y: {
-          ticks: {
-            color: "#cbd5f5",
-          },
-          grid: {
-            color: "rgba(148,163,184,0.2)",
-          },
+          ticks: { color: "#cbd5f5" },
+          grid: { color: "rgba(148,163,184,0.2)" },
           title: {
             display: true,
             text: "Points",

@@ -117,13 +117,13 @@ client.on("interactionCreate", async (interaction: Interaction) => {
       });
 
       await interaction.editReply({
-        content: "Here is your rank progression 📈",
+        content: `Here is the rank progression for ${username} 📈`,
         files: [attachment],
       });
     } catch (err: any) {
-      console.error(err);
+      console.error(err.response.data);
       await interaction.editReply({
-        content: `Error: ${err.message || String(err)}`,
+        content: `${err.response.data.message || String(err)}`,
       });
     }
   }
@@ -252,7 +252,7 @@ client.on("interactionCreate", async (interaction: Interaction) => {
         content: `Assigned role '${roleName}' to ${member?.user.tag}.`,
       });
 
-      const txtReply = `User ${interaction.user.tag} (${interaction.user.id}) assigned to themselves the role '${roleName}' for Embark ID '${username}' with ${rankPoints} RS.`;
+      const txtReply = `User ${interaction.user} (${interaction.user.tag}) assigned to themselves the role '${roleName}' for Embark ID '${username}' with ${rankPoints} RS.`;
 
       const modMsgEmbed = new EmbedBuilder()
         .setColor(0x0099ff)
